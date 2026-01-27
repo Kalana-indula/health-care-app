@@ -3,10 +3,18 @@ import {auth} from "@clerk/nextjs/server";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {UserButton} from "@clerk/nextjs";
+import {getRole} from "@/utils/roles";
+import {redirect} from "next/navigation";
 
 export default async function Home() {
 
     const {userId} = await auth();
+
+    const role=await getRole();
+
+    if(userId && role){
+        redirect(`/${role}`)
+    }
 
     return (
         <div className="flex flex-col items-center justify-center h-screen p-6">
@@ -32,7 +40,7 @@ export default async function Home() {
                         {
                             userId ? (
                                 <>
-                                    <Link href="/dashboard">
+                                    <Link href={`/${role}`}>
                                         <Button>View Dashboard</Button>
                                     </Link>
                                     <UserButton/>
