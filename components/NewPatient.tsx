@@ -1,6 +1,6 @@
 'use client'
 
-import type { Patient } from "@prisma/client";
+import type { Patient } from "@/generated/prisma";
 import React, {useState} from 'react'
 import {useUser} from "@clerk/nextjs";
 
