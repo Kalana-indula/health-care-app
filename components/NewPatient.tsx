@@ -1,14 +1,19 @@
 'use client'
 
-import {Patient} from  "@prisma/client";
-import React from 'react'
+import type { Patient } from "@prisma/client";
+import React, {useState} from 'react'
+import {useUser} from "@clerk/nextjs";
 
 interface DataProps {
     data?:Patient;
     type?:"create"|"update"
 }
 
-const NewPatient = () => {
+const NewPatient = ({data,type}:DataProps) => {
+
+    const user = useUser();
+    const [loading,setLoading]=useState(false);
+
     return (
         <div>NewPatient</div>
     )
