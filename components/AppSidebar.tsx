@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import {getRole} from "@/utils/roles";
 import Link from "next/link";
+import LogoutButton from "@/components/LogoutButton";
 
 const ACCESS_LEVELS_ALL = [
     "admin",
@@ -21,7 +22,7 @@ const ACCESS_LEVELS_ALL = [
     "patient",
 ];
 
-const SidebarIcon = ({Icon}: { Icon: LucideIcon }) => {
+const SidebarIcon = ({icon: Icon}: { icon: LucideIcon }) => {
     return <Icon className="size-6 lg:size-5"/>
 };
 
@@ -175,10 +176,13 @@ const AppSidebar = async () => {
                             </span>
 
                             {el.links.map((link) => {
-                                if (link.access.includes(role.toLowerCase())) {
+                                if (role && link.access.includes(role)) {
                                     return (
-                                        <Link href={link.href}>
-                                            <span>{link.name}</span>
+                                        <Link href={link.href}
+                                              className="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-blue-600/10"
+                                              key={link.name}>
+                                            <SidebarIcon icon={link.icon} />
+                                            <span className="hidden lg:block">{link.name}</span>
                                         </Link>
                                     );
                                 }
@@ -188,7 +192,7 @@ const AppSidebar = async () => {
                     ))}
                 </div>
             </div>
-            AppSidebar
+         <LogoutButton/>
         </div>
     )
 }
