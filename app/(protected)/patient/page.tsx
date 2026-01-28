@@ -1,8 +1,25 @@
 import React from 'react'
+import {currentUser} from "@clerk/nextjs/server";
+import {redirect} from "next/navigation";
+import {UserButton} from "@clerk/nextjs";
 
-const Page = () => {
+const PatientDashboard = async () => {
+
+    const user = await currentUser();
+
+    const data = null;
+
+    if(user && !data){
+        redirect("/patient/registration")
+    }
+
     return (
-        <div>Page</div>
+        <>
+            <div>
+                Patient Dashboard
+                <UserButton/>
+            </div>
+        </>
     )
 }
-export default Page
+export default PatientDashboard
